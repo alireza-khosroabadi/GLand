@@ -12,6 +12,7 @@
     tools:context="com.khosroabadi.myplantaqua.activity.FullScreenProductImageActivity">
 
     <ImageView
+        android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:id="@+id/full_screen_image_view"
         android:layout_width="match_parent"
