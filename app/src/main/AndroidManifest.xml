@@ -86,7 +86,7 @@
                 android:value=".activity.HomeActivity" />
         </activity>
         <activity android:name=".activity.ProductGalleryActivity" />
-        <activity android:name=".activity.FullScreenProductImageActivity"></activity>
+        <activity android:name=".activity.FullScreenProductImageActivity" android:theme="@style/MyDialogTheme"></activity>
     </application>
 
 </manifest>
