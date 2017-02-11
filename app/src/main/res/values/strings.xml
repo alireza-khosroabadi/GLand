@@ -87,5 +87,7 @@
     <string name="application_crash_dialog_title">خطای داخلی اپلیکشن.</string>
     <string name="application_crash_dialog_message">این خطا به صورت اتوماتیک گزارش میگردد.</string>
 
+    <!-- Constants -->
+    <string name="constant_image_name_extra_param">Image_Name_Extra_Param</string>
 
 </resources>
