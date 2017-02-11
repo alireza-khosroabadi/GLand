@@ -12,6 +12,7 @@ import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,13 +25,13 @@ public class ProductImageGalleryAdapter extends RecyclerView.Adapter<ProductImag
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private List<String> imageList;
-    private ProductImageGalleryAdapter.OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
     private  final  String IMAGE_URL = ConstantManager.BASE_URL+"plantImage/";
 
 
-    public ProductImageGalleryAdapter(Context mContext, List<String> imageList) {
+    public ProductImageGalleryAdapter(Context mContext) {
         this.mContext = mContext;
-        this.imageList = imageList;
+        imageList = new ArrayList<>();
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -64,6 +65,7 @@ public class ProductImageGalleryAdapter extends RecyclerView.Adapter<ProductImag
             super(itemView);
             productImage = (ImageView) itemView.findViewById(R.id.product_gallery_cardView_image);
             imageName = (TextView) itemView.findViewById(R.id.product_gallery_cardView_image_name);
+            productImage.setOnClickListener(this);
         }
 
 
@@ -81,7 +83,20 @@ public class ProductImageGalleryAdapter extends RecyclerView.Adapter<ProductImag
         void onItemClick(View view , String imageName );
     }
 
-    public void setOnItemClickListener(final ProductImageGalleryAdapter.OnItemClickListener mOnItemClickListener){
+    public void setOnItemClickListener(final OnItemClickListener mOnItemClickListener){
         this.onItemClickListener = mOnItemClickListener;
+    }
+
+    public void add(String  imageName){
+        imageList.add(imageName);
+        notifyItemInserted(imageList.size() - 1);
+    }
+
+    public void addAll(List<String> imageList){
+        if(imageList != null && imageList.size()>0) {
+            for (String imageName : imageList) {
+                add(imageName);
+            }
+        }
     }
 }
