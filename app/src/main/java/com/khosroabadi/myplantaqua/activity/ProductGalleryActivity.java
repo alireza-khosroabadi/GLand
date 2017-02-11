@@ -44,7 +44,7 @@ public class ProductGalleryActivity extends AppCompatActivity {
         @Override
         public void onItemClick(View view, String imageName) {
             Intent intent = new Intent(ProductGalleryActivity.this, FullScreenProductImageActivity.class);
-
+            intent.getExtras().putString(getString(R.string.constant_image_name_extra_param) , imageName);
             startActivity(intent);
         }
 
