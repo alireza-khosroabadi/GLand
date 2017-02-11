@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/md_white_1000"
+    android:elevation="4dp"
+    >
+
+    <LinearLayout
+        android:layout_weight="0.33"
+        android:textAlignment="center"
+        android:background="@drawable/top_layout_style"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textSize="12dp"
+            android:id="@+id/top_layout_filter"
+            android:onClick="openFilter"
+            android:gravity="center"
+            android:text="@string/top_layout_filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="0.33"
+        android:textAlignment="center"
+        android:background="@drawable/top_layout_style"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textSize="12dp"
+            android:id="@+id/top_layout_show_all"
+            android:onClick="showAll"
+            android:gravity="center"
+            android:text="@string/top_layout_show_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top_layout_orderBy"
+        android:layout_weight="0.33"
+        android:textAlignment="center"
+        android:background="@drawable/top_layout_style"
+        android:layout_width="0dp"
+        android:onClick="orderBy"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:textSize="12dp"
+            android:gravity="center"
+            android:text="@string/top_layout_orderby"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+

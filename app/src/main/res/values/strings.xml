@@ -1,0 +1,91 @@
+<resources>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="app_name">GLand</string>
+    <string name="plants_drawer">گیاهان</string>
+    <string name="fishes_drawer">ماهی ها</string>
+    <string name="shrimp_drawer">میگو ها</string>
+    <string name="crustaceans_drawer">سخت پوستان</string>
+    <string name="clams_drawer">نرم تنان</string>
+    <string name="calculator_drawer">محاسبه گر</string>
+    <string name="tools_drawer">ادوات و لوازم ضروری</string>
+    <string name="samples_drawer">نمونه ها</string>
+    <string name="documents_drawer">مقالات و اطلاعات مفید</string>
+
+    <string name="action_search">جستجو</string>
+    <string name="action_settings">تنظیمات</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="plnat_list">معرفی گیاهان</string>
+    <string name="title_activity_plant_detail">PlantDetailActivity</string>
+
+
+    <string name="plant_transition">plantTransition</string>
+    <string name="plant_image_holder_transition">plantImageHolderTransition</string>
+    <string name="plant_name_holder_transition">plantNameHolderTransition</string>
+    <string name="TransitionActionBar">tActionBar</string>
+    <string name="top_layout_filter">فیلتر</string>
+    <string name="top_layout_orderby">مرتب سازی</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="filter_by">فیلتر بر اساس</string>
+    <string name="plant_detail_temperature">دمای مناسب</string>
+    <string name="plant_detail_maintenance">اطلاعات گیاه</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="downloading">در حال دانلود</string>
+    <string name="connecting_server">درحال برقراری ارتباط با سرور</string>
+    <string name="connecting_server_fail">خطا در برقراری ارتباط با سرور !</string>
+    <string name="fail_network_connection">خطا در اتصال به اینترنت !</string>
+    <string name="open_network_setting">تنظیمات شبکه</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tryAgain">تلاش مجدد</string>
+    <string name="title_activity_product_detail2">ProductDetailActivity2</string>
+    <string name="filter">فیلتر</string>
+    <string name="name">نام فارسی</string>
+    <string name="enName">نام انگلیسی</string>
+    <string name="rate">محبوبیت</string>
+    <string name="top_layout_show_all">نمایش همه</string>
+    <string name="shrimp_list">لیست میگوها</string>
+    <string name="fish_list">لیست ماهی ها</string>
+    <string name="snail_list">لیست حلزون ها</string>
+    <string name="aquarium_length">طول اکواریوم</string>
+    <string name="aquarium_width">عرض اکواریوم</string>
+    <string name="aquarium_height">ارتفاع اکواریوم</string>
+    <string name="milimetter">میلیمتر</string>
+    <string name="calculator_title">محاسبه گر</string>
+    <string name="calculate">محاسبه</string>
+    <string name="calculator_values_is_null">اندازه های طول و عرض و ارتفاع اکواریم وارد نشده است</string>
+    <string name="aquarium_lenght_lower_than_width">طول اکواریوم نباید از عرض آن کوچکتر باشد</string>
+    <string name="aquarium_volume_liter">حجم آکواریوم</string>
+    <string name="liter">لیتر</string>
+    <string name="main_glass_thickness">ضخامت شیشه های جانبی</string>
+    <string name="buttom_glass_thickness">ضخامت شیشه کف</string>
+    <string name="aquarium_glass_area">اندازه شیشه مورد نیاز</string>
+    <string name="m2">متر مربع</string>
+    <string name="glass_weight">وزن شیشه به تنهایی</string>
+    <string name="glass_water_weight">وزن کلی اکواریوم</string>
+    <string name="kilogeram">کیلوگرم</string>
+    <string name="search">جستجو</string>
+    <string name="more">بیشتر</string>
+    <string name="best_plants">محبوبترین گیاه ها</string>
+    <string name="best_fishes">محبوبترین ماهی ها</string>
+    <string name="unable_connect_to_internet">عدم دسترسی به اینترنت</string>
+    <string name="try_again">تلاش مجدد</string>
+    <string name="best_shrimp">محبوبترین میگو ها</string>
+    <string name="unknow_error">خطای نا مشخص</string>
+    <string name="error_msg_timeout">زمان انتظار بیش از اندازه برای پاسخگویی سرور</string>
+    <string name="information">مشخصات</string>
+    <string name="share_content_product_name">نام</string>
+    <string name="share_content_product_enName">نام انگلیسی</string>
+    <string name="about">درباره ما</string>
+    <string name="references">منابع</string>
+
+    <string name="application_crash_dialog_title">خطای داخلی اپلیکشن.</string>
+    <string name="application_crash_dialog_message">این خطا به صورت اتوماتیک گزارش میگردد.</string>
+
+
+</resources>

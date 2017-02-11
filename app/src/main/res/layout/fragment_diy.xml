@@ -1,0 +1,386 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/diy_coordinatorLayout">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+<android.support.v7.widget.CardView
+    android:id="@+id/input_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/aquarium_length"/>
+
+        <EditText
+            android:id="@+id/aqua_length"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="8dp"
+            android:textColorHint="@color/md_black_1000"
+            android:hint="@string/milimetter"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/aquarium_width"/>
+
+        <EditText
+            android:id="@+id/aqua_width"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="8dp"
+            android:textColorHint="@color/md_black_1000"
+            android:hint="@string/milimetter"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/aquarium_height"/>
+
+        <EditText
+            android:id="@+id/aqua_height"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="8dp"
+            android:textColorHint="@color/md_black_1000"
+            android:hint="@string/milimetter"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:id="@+id/diy_calculate_btn"
+                android:background="@drawable/calculator_btn_style"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calculate"
+                android:textSize="14dp"
+                android:textColor="@color/md_white_1000"
+                android:elevation="8dp"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+    </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@+id/input_card"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/aquarium_volume_liter"/>
+
+        <TextView
+            android:id="@+id/aquariumVolume_liter"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColorHint="@color/md_black_1000"/>
+
+        <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+            android:text="@string/liter"
+        android:textColorHint="@color/md_black_1000"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/calculator_margin"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_marginLeft="8dp"
+                android:layout_height="wrap_content"
+                android:textSize="11dp"
+                style="bold"
+                android:textColor="@color/md_black_1000"
+                android:text="@string/main_glass_thickness"/>
+
+            <TextView
+                android:id="@+id/main_glass_thickness"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginLeft="8dp"
+                android:textColorHint="@color/md_black_1000"/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="@string/milimetter"
+                android:textColorHint="@color/md_black_1000"/>
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/buttom_glass_thickness"/>
+
+        <TextView
+            android:id="@+id/buttom_glass_thickness"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginLeft="8dp"
+            android:textColorHint="@color/md_black_1000"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="@string/milimetter"
+            android:textColorHint="@color/md_black_1000"/>
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/aquarium_glass_area"/>
+
+        <TextView
+            android:id="@+id/glass_area"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginLeft="8dp"
+            android:textColorHint="@color/md_black_1000"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="@string/m2"
+            android:textColorHint="@color/md_black_1000"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/glass_weight"/>
+
+        <TextView
+            android:id="@+id/glass_weight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginLeft="8dp"
+            android:textColorHint="@color/md_black_1000"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="@string/kilogeram"
+            android:textColorHint="@color/md_black_1000"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/calculator_margin"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            style="bold"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/glass_water_weight"/>
+
+        <TextView
+            android:id="@+id/aquarium_weight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            android:layout_marginLeft="8dp"
+            android:textColorHint="@color/md_black_1000"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="@string/kilogeram"
+            android:textColorHint="@color/md_black_1000"/>
+
+
+    </LinearLayout>
+    </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

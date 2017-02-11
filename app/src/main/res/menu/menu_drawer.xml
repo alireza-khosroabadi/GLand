@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menu_contentData" android:checkableBehavior="single">
+    <item android:id="@+id/plants_drawer" android:icon="@drawable/ic_plant_menu"
+        android:title="@string/plants_drawer" />
+    <item android:id="@+id/fishes_drawer" android:icon="@drawable/ic_menu_fish"
+        android:title="@string/fishes_drawer"/>
+    <item android:id="@+id/snail_drawer" android:icon="@drawable/ic_menu_snail"
+        android:title="@string/crustaceans_drawer"/>
+        <item android:id="@+id/shrimp_drawer" android:icon="@drawable/ic_menu_shrimp"
+            android:title="@string/shrimp_drawer"/>
+        <item android:id="@+id/tools_drawer" android:icon="@drawable/ic_menu_tools"
+            android:title="@string/tools_drawer"/>
+    </group>
+
+    <group android:id="@+id/menu_documents_group" android:checkableBehavior="single">
+        <item android:id="@+id/documents_drawer" android:icon="@drawable/ic_plant_menu"
+            android:title="@string/documents_drawer"/>
+        <item android:id="@+id/samples_drawer" android:icon="@drawable/ic_plant_menu"
+            android:title="@string/samples_drawer"/>
+
+    </group>
+
+    <group android:id="@+id/calculating" android:checkableBehavior="single">
+    <item android:id="@+id/calculator_drawer" android:icon="@drawable/ic_plant_menu"
+        android:title="@string/calculator_drawer"/>
+
+    </group>
+
+    <group android:id="@+id/about_app_group" android:checkableBehavior="single">
+        <item android:id="@+id/about_app_drawer" android:icon="@drawable/ic_plant_menu"
+            android:title="@string/about"/>
+
+    </group>
+</menu>

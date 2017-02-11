@@ -1,0 +1,47 @@
+<resources>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:supportsRtl">true</item>
+    </style>
+
+    <style name="toolbar_style">
+        <item name="android:textSize">@dimen/toolbar_textSize</item>
+    </style>
+
+    <style name="navigation_drawer_header_text_style">
+        <item name="android:paddingRight">@dimen/padding_left_drawer_header_text</item>
+    </style>
+
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert" >
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/md_amber_600</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+
+        <item name="android:textColor">@color/colorPrimary</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/md_white_1000</item>
+        <item name="android:layout_marginRight">@dimen/crash_alert_dialog_margin</item>
+        <item name="android:supportsRtl">true</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+</resources>
