@@ -34,8 +34,10 @@ public class ProductGalleryActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.product_image_gallery_recyclerView);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new ProductImageGalleryAdapter(getApplicationContext());
+        mRecyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(onItemClickListener);
         loadProductImage();
-
     }
 
     ProductImageGalleryAdapter.OnItemClickListener onItemClickListener = new ProductImageGalleryAdapter.OnItemClickListener(){
@@ -56,10 +58,8 @@ public class ProductGalleryActivity extends AppCompatActivity {
                 prodructImageList = imageList;
                 if (getApplicationContext() != null) {
                     prodructImageList = imageList;
-                    adapter = new ProductImageGalleryAdapter(getApplicationContext() , prodructImageList);
-                    mRecyclerView.setAdapter(adapter);
-                   // imageOnClickListener();
-                    adapter.setOnItemClickListener(onItemClickListener);
+                    adapter.addAll(prodructImageList);
+                    // imageOnClickListener();
                     //viewPagerIndicatorInitialize();
                 }
             }
