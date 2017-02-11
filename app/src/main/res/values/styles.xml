@@ -29,6 +29,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">#ffdddddd</item>
+    </style>
+
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert" >
         <!-- Used for the buttons -->
         <item name="colorAccent">@color/md_amber_600</item>
