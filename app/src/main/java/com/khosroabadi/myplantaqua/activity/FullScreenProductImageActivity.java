@@ -2,6 +2,9 @@ package com.khosroabadi.myplantaqua.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 
 import com.khosroabadi.myplantaqua.R;
@@ -11,6 +14,10 @@ import com.squareup.picasso.Picasso;
 public class FullScreenProductImageActivity extends AppCompatActivity {
 
     ImageView imageView;
+    ScaleGestureDetector scaleGDetector;
+
+    float scale=1f;
+
     private  final  String IMAGE_URL = ConstantManager.BASE_URL+"plantImage/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +28,59 @@ public class FullScreenProductImageActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(IMAGE_URL+imageName)
                 .into(imageView);
+        scaleGDetector=new ScaleGestureDetector(this, new ScaleListener());
+    }
+
+
+    @Override
+
+    public boolean onTouchEvent(MotionEvent ev) {
+
+        scaleGDetector.onTouchEvent(ev);
+
+        return true;
+
+    }
+
+
+
+    private class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener{
+
+        public boolean onScaleBegin(ScaleGestureDetector sgd){
+
+
+
+            return true;
+
+
+
+        }
+
+        public void onScaleEnd(ScaleGestureDetector sgd){
+
+            imageView.setScaleX(1f);
+
+            imageView.setScaleY(1f);
+
+        }
+
+        public boolean onScale(ScaleGestureDetector sgd){
+
+            // Multiply scale factor
+
+            scale*= sgd.getScaleFactor();
+            scale =  Math.max(1f, Math.min(scale, 4f));
+            // Scale or zoom the imageview
+
+            imageView.setScaleX(scale);
+
+            imageView.setScaleY(scale);
+
+            Log.i("Main",String.valueOf(scale));
+
+            return true;
+
+        }
 
     }
 }
