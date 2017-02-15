@@ -1,12 +1,8 @@
 package com.khosroabadi.myplantaqua.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.transition.TransitionManager;
-import android.support.transition.TransitionSet;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.khosroabadi.myplantaqua.R;
@@ -51,7 +45,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private String errorMsg;
-    private boolean updatedProduct=false;
+    int lastPosition = -1;
 
     public ProductListAdapter(Context mContext) {
         this.mContext = mContext;
@@ -96,7 +90,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ProductBean.Product product = this.productBeanList.get(position);
-        int lastPosition = -1;
         switch (getItemViewType(position)) {
             case ITEM: {
                 final ProductVH pHolder = (ProductVH) holder;
@@ -121,7 +114,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
                 });
 
-                    Animation animation = AnimationUtils.loadAnimation(mContext , R.anim.product_list_anim);
+                    Animation animation = AnimationUtils.loadAnimation(mContext , (position > lastPosition) ? R.anim.product_list_anim_up_from_bottom
+                            : R.anim.product_list_anim_down_from_top);
+                //holder.itemView.startAnimation(animation);
+                lastPosition = position;
                     pHolder.itemView.startAnimation(animation);
 
         if(favoritsBean.getId() !=null) {
@@ -200,6 +196,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     break;
             }
         }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     @Override
