@@ -89,5 +89,7 @@
 
     <!-- Constants -->
     <string name="constant_image_name_extra_param">Image_Name_Extra_Param</string>
+    <string name="title_newproduct_list">NewProducts</string>
+    <string name="title_newproduct_detail">NewProduct Detail</string>
 
 </resources>
