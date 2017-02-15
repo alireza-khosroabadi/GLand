@@ -16,6 +16,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.view.ContextMenu;
@@ -130,8 +131,9 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
 
     private  void initializeRecyclerView(){
         mRecyclerView = (RecyclerView) findViewById(R.id.plant_list);
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        boolean isPhone = getResources().getBoolean(R.bool.is_phone);
+            linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            mRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new ProductListAdapter(this);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);

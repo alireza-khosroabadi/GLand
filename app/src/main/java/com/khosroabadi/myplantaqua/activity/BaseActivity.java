@@ -88,11 +88,13 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 return true;
             }
-            case R.id.documents_drawer: {
+/*            case R.id.documents_drawer: {
                 Intent intent = new Intent(BaseActivity.this, NewProductListActivity.class);
+                intent.putExtra(ConstantManager.CATEGORY_NAME , ConstantManager.CATEGORY.PLANT);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
-            }
+            }*/
             default:
                 return true;
         }
