@@ -18,22 +18,23 @@
     <TextView
         android:id="@+id/textFail"
         android:layout_below="@+id/desconnect_image"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="@dimen/layout_margin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="12dp"
+        android:textSize="@dimen/content_text_size"
         android:text="@string/fail_network_connection" />
 
 
     <TextView
         android:id="@+id/network_fail_btn"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/layout_margin"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/textFail"
         android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/content_text_size"
         android:text="@string/tryAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

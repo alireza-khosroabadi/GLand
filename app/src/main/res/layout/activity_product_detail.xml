@@ -11,7 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/product_detail_main_appbar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/product_details_appbar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/product_detail_nested_scroll"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/layout_margin"
         android:fillViewport="true">
 
 
@@ -62,16 +62,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/space_between_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_gravity="top"
                 android:gravity="left"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@color/md_grey_100"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/layout_margin"
                 android:orientation="horizontal">
 
                 <!--<ImageView
@@ -87,10 +87,10 @@
                 <com.khosroabadi.myplantaqua.customComponent.AwesomeTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/layout_margin"
                     android:id="@+id/likeTextView"
                     android:textColor="@color/md_grey_700"
-                    android:textSize="20dp"
+                    android:textSize="@dimen/awesome_text_size"
                     android:text="@string/fa_heart_o"
                     android:layout_gravity="center_vertical"
                     />
@@ -100,9 +100,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/md_grey_700"
                     android:id="@+id/share_product"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/layout_margin"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20dp"
+                    android:textSize="@dimen/awesome_text_size"
                     android:text="@string/fa_share_alt"/>
 
 
@@ -113,15 +113,14 @@
             <android.support.v7.widget.CardView
                 android:elevation="4dp"
 
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/layout_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:padding="8dp"
+                    android:layout_margin="@dimen/content_margin_lr"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatTextView
@@ -129,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/title_text_size"
                         android:gravity="center_horizontal"
                         style="bold"
                         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -138,7 +137,7 @@
                     <TextView
                         android:id="@+id/product_description"
                         android:layout_width="match_parent"
-                        android:textSize="12dp"
+                        android:textSize="@dimen/content_text_size"
                         android:layout_height="wrap_content" />
 
                     <include layout="@layout/product_activity_error_layout"/>
@@ -150,15 +149,16 @@
 
             <android.support.v7.widget.CardView
                 android:elevation="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+android:layout_margin="@dimen/layout_margin"
                 android:layout_width="match_parent"
                 android:id="@+id/product_info_card"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_margin="16dp"
+                    android:layout_marginRight="@dimen/content_margin_lr"
+                    android:layout_marginLeft="@dimen/content_margin_lr"
+                    android:layout_marginTop="@dimen/space_between_content"
+                    android:layout_marginBottom="@dimen/space_between_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -167,19 +167,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/space_between_content"
                         android:text="@string/information"
                         style="bold"
-                        android:textSize="16dp"/>
+                        android:textSize="@dimen/title_text_size"/>
 
                     <LinearLayout
                         android:id="@+id/product_details"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:padding="8dp"
+                        android:layout_marginBottom="@dimen/space_between_content"
                         android:orientation="vertical">
 
                     </LinearLayout>

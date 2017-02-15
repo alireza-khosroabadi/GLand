@@ -30,7 +30,7 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:layout_marginTop="16dp"
+                  android:layout_marginTop="@dimen/layout_margin"
                   tools:text="The server took too long to respond."/>
 
               <Button
@@ -39,7 +39,7 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center_horizontal"
-                  android:layout_marginTop="16dp"
+                  android:layout_marginTop="@dimen/layout_margin"
                   android:text="@string/try_again"
                   android:textColor="@color/colorPrimary"/>
           </LinearLayout>

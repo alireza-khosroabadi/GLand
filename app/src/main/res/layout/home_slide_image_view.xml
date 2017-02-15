@@ -18,6 +18,6 @@
         android:id="@+id/sliding_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"/>
+        android:textSize="@dimen/content_text_size"
+        android:layout_margin="@dimen/layout_margin"/>
 </RelativeLayout>

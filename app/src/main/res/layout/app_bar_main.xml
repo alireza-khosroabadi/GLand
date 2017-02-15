@@ -38,13 +38,17 @@
         android:visibility="gone"
         android:id="@+id/home_slide_show_frame"
         android:layout_width="match_parent"
-        android:layout_height="200dp"></FrameLayout>
+        android:layout_height="@dimen/home_slide_show_height"></FrameLayout>
 
             <!--<include layout="@layout/product_activity_error_layout"/>-->
 
     <LinearLayout
         android:id="@+id/connection_faild_holder"
         android:visibility="gone"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/space_between_content"
+        android:layout_marginBottom="@dimen/space_between_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -54,23 +58,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
-            android:textSize="12dp"
+            android:textSize="@dimen/content_text_size"
             android:text="@string/fail_network_connection" />
         <TextView
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/layout_margin"
             android:layout_below="@+id/textFail"
             android:id="@+id/open_network_setting"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
-            android:textSize="11dp"
+            android:textSize="@dimen/content_text_size"
             android:text="@string/open_network_setting" />
 
 
         <Button
             android:id="@+id/network_fail_btn"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/layout_margin"
             android:background="#55111111"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/open_network_setting"
@@ -86,7 +90,10 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/space_between_content"
+        android:layout_marginBottom="@dimen/space_between_content"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -99,9 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textSize="@dimen/content_text_size"
                 android:layout_gravity="right"
                 android:textColor="@color/md_black_1000"
-                android:layout_marginRight="16dp"
                 android:text="@string/best_plants"/>
         </LinearLayout>
 
@@ -115,7 +122,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:layout_marginLeft="16dp"
                 android:background="@drawable/ic_action_more_horiz"/>
         </LinearLayout>
 
@@ -132,7 +138,10 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/space_between_content"
+        android:layout_marginBottom="@dimen/space_between_content"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -146,8 +155,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:layout_gravity="right"
+                android:textSize="@dimen/content_text_size"
                 android:textColor="@color/md_black_1000"
-                android:layout_marginRight="16dp"
                 android:text="@string/best_fishes"/>
         </LinearLayout>
 
@@ -161,7 +170,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:layout_marginLeft="16dp"
                 android:background="@drawable/ic_action_more_horiz"/>
         </LinearLayout>
 
@@ -178,7 +186,10 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/space_between_content"
+        android:layout_marginBottom="@dimen/space_between_content"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
@@ -191,8 +202,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:layout_gravity="right"
+                android:textSize="@dimen/content_text_size"
                 android:textColor="@color/md_black_1000"
-                android:layout_marginRight="16dp"
                 android:text="@string/best_shrimp"/>
         </LinearLayout>
 
@@ -207,7 +218,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_gravity="left"
-                android:layout_marginLeft="16dp"
                 android:background="@drawable/ic_action_more_horiz"/>
         </LinearLayout>
 

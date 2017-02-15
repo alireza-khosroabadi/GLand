@@ -30,14 +30,14 @@
             android:transitionName="@string/plant_name_holder_transition">
 
             <TextView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/space_between_content"
                 android:id="@+id/plant_enName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft ="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:textSize="13dp"
+                android:layout_marginBottom="@dimen/layout_margin"
+                android:layout_marginLeft="@dimen/layout_margin"
+                android:textSize="@dimen/content_text_size"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/md_black_1000"/>
 
@@ -48,7 +48,7 @@
                 android:visibility="gone"
 
                 android:layout_alignLeft="@id/plant_enName"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/space_between_content"
                 android:layout_gravity="left"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="22sp"
+                android:textSize="@dimen/title_text_size"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="11dp"
                 android:layout_marginBottom="8dp"
@@ -119,10 +119,10 @@
             <com.khosroabadi.myplantaqua.customComponent.AwesomeTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="@dimen/layout_margin"
                 android:id="@+id/likeImageView"
                 android:textColor="@color/md_grey_700"
-                android:textSize="20dp"
+                android:textSize="@dimen/awesome_text_size"
                 android:text="@string/fa_heart_o"
                 android:layout_gravity="center_vertical"
                 />
@@ -132,9 +132,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_grey_700"
                 android:id="@+id/share_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="@dimen/layout_margin"
                 android:layout_gravity="center_vertical"
-                android:textSize="20dp"
+                android:textSize="@dimen/awesome_text_size"
                 android:text="@string/fa_share_alt"/>
 
 

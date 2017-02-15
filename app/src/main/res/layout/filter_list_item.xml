@@ -8,13 +8,14 @@
         android:visibility="gone"
         android:id="@+id/filter_list_item_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:textSize="@dimen/content_text_size"
         android:textColor="@color/md_black_1000"/>
 
     <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/filter_list_item_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginRight="16dp"
         android:textColor="@color/md_black_1000"
         android:checked="false"
