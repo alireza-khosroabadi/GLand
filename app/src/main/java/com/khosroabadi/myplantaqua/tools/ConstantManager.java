@@ -23,6 +23,7 @@ public class ConstantManager {
     public static final String UPDATE_PRODUCT_SP="update_product";
     public static final String PRODUCT_IS_UPDATE="product_is_update";
     public static final String PRODUCT_IMAGE_PATH="product_image_path";
+    public static final String PRODUCT_PRODUCT_NAME="product_productName";
 
 
 
