@@ -100,7 +100,7 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
         View contentView = getLayoutInflater().inflate(R.layout.activity_product, null , false);
         drawerLayout.addView(contentView,0);
         mToolbar = (Toolbar) findViewById(R.id.plant_activity_toolbar);
-        mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarTitle = (TextView) findViewById(R.id.public_toolbar_title);
         setTitle(productCategory);
 //mToolbarTitle.setText();
         setSupportActionBar(mToolbar);

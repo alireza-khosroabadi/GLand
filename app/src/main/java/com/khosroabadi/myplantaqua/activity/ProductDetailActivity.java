@@ -42,12 +42,11 @@ public class ProductDetailActivity extends BaseActivity {
 
     private AppCompatImageView plantImage ;
     private TextView plantName , productDescription , errorText;
-    private String productEnName;
+    private String productEnName,productName,productImageName;
     private LinearLayout errorLayout,mPlantDetailContentLinear;
     private CardView productInfoCard;
     private Toolbar toolbar;
     private Button btnRetry;
-    private String productImageName;
     private LinearLayout productDetailsLayout;
     private  final  String IMAGE_URL = ConstantManager.BASE_URL+"plantImage/";
     private AwesomeTextView shareTextView,likeTextView;
@@ -95,6 +94,7 @@ public class ProductDetailActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProductDetailActivity.this , ProductGalleryActivity.class);
                 intent.putExtra(ConstantManager.PRODUCT_IMAGE_PATH , productImageName);
+                intent.putExtra(ConstantManager.PRODUCT_PRODUCT_NAME , productName);
                 startActivity(intent);
             }
         });
@@ -234,6 +234,7 @@ public class ProductDetailActivity extends BaseActivity {
                         productEnName = propertiesBeanList.get(0).getProductEnName();
                         productDescription.setText(propertiesBeanList.get(0).getDescription());
                         productImageName = propertiesBeanList.get(0).getImageName();
+                        productName = propertiesBeanList.get(0).getProductName();
                         Glide.with(getApplicationContext())
                             .load(IMAGE_URL+"/"+productImageName)
                             .into(plantImage);
