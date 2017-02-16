@@ -26,7 +26,7 @@ public class CalculatorActivity extends BaseActivity {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = layoutInflater.inflate(R.layout.activity_calculator, null, false);
         drawerLayout.addView(contentView, 0);
-        mToolbarText = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarText = (TextView) findViewById(R.id.public_toolbar_title);
         mToolbar = (Toolbar) findViewById(R.id.plant_activity_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
