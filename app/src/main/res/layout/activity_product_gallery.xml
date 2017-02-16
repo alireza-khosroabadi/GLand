@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/md_grey_200">
 
 
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/public_toolbar" />
+        <include layout="@layout/toolbar" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/product_image_gallery_recyclerView"
