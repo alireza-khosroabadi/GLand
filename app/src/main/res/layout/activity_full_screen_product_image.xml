@@ -11,6 +11,19 @@
     android:fitsSystemWindows="true"
     tools:context="com.khosroabadi.myplantaqua.activity.FullScreenProductImageActivity">
 
+    <com.khosroabadi.myplantaqua.customComponent.AwesomeTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/full_screen_close"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/md_blue_grey_600"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone"
+        android:textSize="@dimen/title_text_size"
+        android:layout_margin="@dimen/layout_margin"
+        android:text="@string/fa_times"/>
+
     <ImageView
         android:layout_centerInParent="true"
         android:id="@+id/full_screen_image_view"

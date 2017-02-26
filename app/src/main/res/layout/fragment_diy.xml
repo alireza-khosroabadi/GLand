@@ -180,7 +180,6 @@
             android:layout_marginLeft="@dimen/diy_content_between_space"
             android:layout_height="wrap_content"
             android:textSize="@dimen/content_text_size"
-            style="bold"
             android:textColor="@color/md_black_1000"
             android:text="@string/aquarium_volume_liter"/>
 
