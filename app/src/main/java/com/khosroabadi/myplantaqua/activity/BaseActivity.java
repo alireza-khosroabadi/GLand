@@ -37,7 +37,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
 
-
+        getWindow().setBackgroundDrawable(null);
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);

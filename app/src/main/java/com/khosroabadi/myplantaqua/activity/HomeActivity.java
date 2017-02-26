@@ -62,7 +62,6 @@ public class HomeActivity extends BaseActivity {
        // List<LookupBean> lookupList = new ArrayList<>();
 
 
-
     }
 
     private void initializeView() {

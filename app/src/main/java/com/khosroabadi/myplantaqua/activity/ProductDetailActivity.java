@@ -3,6 +3,7 @@ package com.khosroabadi.myplantaqua.activity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.adapters.DetailsViewTransitionAdapter;
 import com.khosroabadi.myplantaqua.customComponent.AwesomeTextView;
@@ -88,7 +90,6 @@ public class ProductDetailActivity extends BaseActivity {
         btnRetry = (Button) findViewById(R.id.error_btn_retry);
 
         initializeTextViewIcons();
-
         plantImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +107,10 @@ public class ProductDetailActivity extends BaseActivity {
                 getropertiesFromServer(position);
             }
         });
+    }
+
+    private void hideSystemUI(){
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     private void initializeTextViewIcons() {
@@ -237,7 +242,10 @@ public class ProductDetailActivity extends BaseActivity {
                         productName = propertiesBeanList.get(0).getProductName();
                         Glide.with(getApplicationContext())
                             .load(IMAGE_URL+"/"+productImageName)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .placeholder(R.drawable.img_back)
                             .into(plantImage);
+                        plantImage.setBackgroundColor(Color.TRANSPARENT);
                         FavoritsDataProvider favoritsDataProvider = new FavoritsDataProvider(getApplicationContext());
                         Integer productId = getIntent().getIntExtra(ConstantManager.PRODUCT_DETAILS_EXTRA_PARAM_ID , 0);
                         FavoritsBean favoritsBean = favoritsDataProvider.findByProductId(productId);

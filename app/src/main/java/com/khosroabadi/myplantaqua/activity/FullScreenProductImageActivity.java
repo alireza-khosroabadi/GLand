@@ -1,13 +1,16 @@
 package com.khosroabadi.myplantaqua.activity;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.khosroabadi.myplantaqua.R;
+import com.khosroabadi.myplantaqua.customComponent.AwesomeTextView;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 import com.squareup.picasso.Picasso;
 
@@ -15,6 +18,7 @@ public class FullScreenProductImageActivity extends AppCompatActivity {
 
     ImageView imageView;
     ScaleGestureDetector scaleGDetector;
+    AwesomeTextView close;
 
     float scale=1f;
 
@@ -28,6 +32,15 @@ public class FullScreenProductImageActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(IMAGE_URL+imageName)
                 .into(imageView);
+        imageView.setBackgroundColor(Color.TRANSPARENT);
+        close = (AwesomeTextView) findViewById(R.id.full_screen_close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        getWindow().setBackgroundDrawable(null);
         scaleGDetector=new ScaleGestureDetector(this, new ScaleListener());
     }
 
@@ -58,9 +71,9 @@ public class FullScreenProductImageActivity extends AppCompatActivity {
 
         public void onScaleEnd(ScaleGestureDetector sgd){
 
-            imageView.setScaleX(1f);
+            /*imageView.setScaleX(1f);
 
-            imageView.setScaleY(1f);
+            imageView.setScaleY(1f);*/
 
         }
 

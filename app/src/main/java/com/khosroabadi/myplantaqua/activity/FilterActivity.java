@@ -62,7 +62,7 @@ public class FilterActivity extends BaseActivity {
         String propertyGroupCategory = getIntent().getExtras().getString(ConstantManager.PRODUCT_FILTER_CATEGROY_EXTRA_PARAM);
         getPropertyGroupFromServer(propertyGroupCategory);
         groupListView = (ListView) findViewById(R.id.filter_group_list);
-
+        getWindow().setBackgroundDrawable(null);
         final List<String> listGroup= new ArrayList<>();
 
         if (getWindow().getDecorView().getLayoutDirection() == View.LAYOUT_DIRECTION_LTR) {

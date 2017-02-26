@@ -35,7 +35,7 @@ public class AboutActivity extends BaseActivity {
         View contentView = getLayoutInflater().inflate(R.layout.activity_about, null , false);
         drawerLayout.addView(contentView,0);
         mToolbar = (Toolbar) findViewById(R.id.plant_activity_toolbar);
-        mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarTitle = (TextView) findViewById(R.id.public_toolbar_title);
         mToolbarTitle.setText(getString(R.string.about));
 //mToolbarTitle.setText();
         setSupportActionBar(mToolbar);
