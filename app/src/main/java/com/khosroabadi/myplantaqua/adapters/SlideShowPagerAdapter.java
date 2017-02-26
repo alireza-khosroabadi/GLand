@@ -1,6 +1,7 @@
 package com.khosroabadi.myplantaqua.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.AppCompatImageView;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
@@ -55,8 +57,9 @@ public class SlideShowPagerAdapter extends PagerAdapter {
         textView.setTypeface(font);
         Glide.with(mContext)
                 .load(IMAGE_URL+ productList.get(position).getImageName())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
-
+        imageView.setBackgroundColor(Color.TRANSPARENT);
         container.addView(view);
 
         return view;

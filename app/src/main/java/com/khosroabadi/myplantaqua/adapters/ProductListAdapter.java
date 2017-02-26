@@ -1,6 +1,7 @@
 package com.khosroabadi.myplantaqua.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.adapters.dataFactory.PaginationAdapterCallback;
 import com.khosroabadi.myplantaqua.customComponent.AwesomeTextView;
@@ -100,7 +102,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 Glide.with(mContext)
                 .load(IMAGE_URL+ product.getImageName())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(pHolder.plantImage);
+                pHolder.plantImage.setBackgroundColor(Color.TRANSPARENT);
                 pHolder.mProgress.setVisibility(View.GONE);
                 final FavoritsDataProvider favoritsDataProvider = new FavoritsDataProvider(mContext);
                 FavoritsBean favoritsBean = favoritsDataProvider.findByProductId(product.getId());

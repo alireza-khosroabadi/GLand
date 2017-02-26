@@ -1,6 +1,7 @@
 package com.khosroabadi.myplantaqua.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class ProductImageGalleryAdapter extends RecyclerView.Adapter<ProductImag
         Picasso.with(mContext)
                 .load(IMAGE_URL+ imageList.get(position))
                 .into(holder.productImage);
+        holder.productImage.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
