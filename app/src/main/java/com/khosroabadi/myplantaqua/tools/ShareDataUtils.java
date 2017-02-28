@@ -51,14 +51,15 @@ public class ShareDataUtils {
                 for (PropertiesBean propertiesBean : propertiesBeanList) {
 
                     stringContent.append(propertiesBean.getPropertiesGroup() + " : " + propertiesBean.getPropertiesItemValue());
-                    stringContent.append("\n");
-                    stringContent.append("\n");
-                    stringContent.append("\n");
-                    stringContent.append(mContext.getString(R.string.send_from));
-                    stringContent.append("\n");
 
+                    stringContent.append("\n");
 
                 }
+
+                stringContent.append("\n");
+                stringContent.append("\n");
+                stringContent.append(mContext.getString(R.string.send_from));
+                stringContent.append("\n");
 
               //  final Bitmap productImageBitmap = null;
                     AsyncTask.execute(new Runnable() {
