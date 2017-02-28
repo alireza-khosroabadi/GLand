@@ -52,6 +52,12 @@ public class ShareDataUtils {
 
                     stringContent.append(propertiesBean.getPropertiesGroup() + " : " + propertiesBean.getPropertiesItemValue());
                     stringContent.append("\n");
+                    stringContent.append("\n");
+                    stringContent.append("\n");
+                    stringContent.append(mContext.getString(R.string.send_from));
+                    stringContent.append("\n");
+
+
                 }
 
               //  final Bitmap productImageBitmap = null;
@@ -71,7 +77,8 @@ public class ShareDataUtils {
                                 sendIntent.setType("image/*");
                                 sendIntent.putExtra(Intent.EXTRA_TEXT , stringContent.toString());
                                 sendIntent.setType("text/plain");
-                                mContext.startActivity(Intent.createChooser(sendIntent , ""));
+                                sendIntent.setPackage("org.telegram.messenger");
+                                mContext.startActivity(sendIntent);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {
