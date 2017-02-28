@@ -81,6 +81,7 @@
     <string name="information">مشخصات</string>
     <string name="share_content_product_name">نام</string>
     <string name="share_content_product_enName">نام انگلیسی</string>
+    <string name="send_from">ارسال شده از GLand</string>
     <string name="about">درباره ما</string>
     <string name="references">منابع</string>
 
@@ -91,5 +92,7 @@
     <string name="constant_image_name_extra_param">Image_Name_Extra_Param</string>
     <string name="title_newproduct_list">NewProducts</string>
     <string name="title_newproduct_detail">NewProduct Detail</string>
+
+
 
 </resources>
