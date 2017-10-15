@@ -44,14 +44,19 @@ import com.khosroabadi.myplantaqua.dataModel.da.filterCache.FilterCacheDataProvi
 import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
 import com.khosroabadi.myplantaqua.listener.PaginationScrollListener;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
+import com.khosroabadi.myplantaqua.tools.MyApp;
 import com.khosroabadi.myplantaqua.tools.TransitionHelper;
 import com.khosroabadi.myplantaqua.webservice.WSUtils;
+import com.squareup.picasso.Picasso;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ProductActivity extends BaseActivity implements PaginationAdapterCallback{
@@ -77,6 +82,10 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
     private Integer orderDirection = ConstantManager.ORDERBY.ORDER_DIR_ASC;
     private String searchParam;
     private Integer selectedPRoductId;
+    private Picasso picasso;
+
+    private Call<ProductBean> productBeanCall;
+    private MyApp myApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +96,8 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
             orderBy = getIntent().getExtras().getString(ConstantManager.ORDER_BY);
             orderDirection = getIntent().getExtras().getInt(ConstantManager.ORDER_DIRECTION);
         }
+        myApp = MyApp.get(this);
+
         initInstancesDrawer();
         initializeRecyclerView();
         FilterCacheDataProvider filterCacheDataProvider = new FilterCacheDataProvider(getApplicationContext());
@@ -130,11 +141,12 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
     }
 
     private  void initializeRecyclerView(){
+        picasso = myApp.getPicasso();
         mRecyclerView = (RecyclerView) findViewById(R.id.plant_list);
         boolean isPhone = getResources().getBoolean(R.bool.is_phone);
             linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new ProductListAdapter(this);
+        mAdapter = new ProductListAdapter(this , picasso);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(onItemClickListener);
@@ -378,58 +390,53 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
 
     private void loadFirstPage(/*final String category ,final String filterParameter  ,final String orderBy */){
         hideErrorView();
-        WSUtils wsUtils = new WSUtils(getApplicationContext());
-        List<ProductBean> productBeanList = new ArrayList<>();
-            wsUtils.getproductList(productCategory, PAGE_START, filterParams, orderBy, orderDirection, ConstantManager.ORDERBY.rowNumber, searchParam, new WSUtils.productListInterface() {
-                @Override
-                public void onSuccess(List<ProductBean.Product> productBeanList, Integer totalPage, Integer totalResult, Integer pageNumber) {
-                    //setProductBeanList(productBeanList);
-
-                    currentPage = PAGE_START;
-                    isLastPage = false;
-                    progressBar.setVisibility(View.GONE);
-                    mAdapter.addAll(productBeanList);
-                    TOTAL_PAGES = totalPage;
-                    if ((currentPage <= TOTAL_PAGES) && (ConstantManager.ORDERBY.rowNumber <= totalResult))
-                        mAdapter.addLoadingFooter();
-                    else isLastPage = true;
-                    hideErrorView();
-                    if (productBeanList.size() < 1) {
-                      /*  TextView textView = (TextView) findViewById(R.id.product_list_text_message);
+        productBeanCall = myApp.getApiService().getProducts(productCategory, filterParams, orderBy, orderDirection,PAGE_START, ConstantManager.ORDERBY.rowNumber, searchParam);
+        productBeanCall.enqueue(new Callback<ProductBean>() {
+            @Override
+            public void onResponse(Call<ProductBean> call, Response<ProductBean> response) {
+                currentPage = PAGE_START;
+                isLastPage = false;
+                progressBar.setVisibility(View.GONE);
+                mAdapter.addAll(response.body().getProductList());
+                TOTAL_PAGES = response.body().getTotalPage();
+                if ((currentPage <= TOTAL_PAGES) && (ConstantManager.ORDERBY.rowNumber <= response.body().getTotalResult()))
+                    mAdapter.addLoadingFooter();
+                else isLastPage = true;
+                hideErrorView();
+/*                if (productBeanList.size() < 1) {
+                      *//*  TextView textView = (TextView) findViewById(R.id.product_list_text_message);
                         textView.setText("Noting");
-                        textView.setVisibility(View.VISIBLE);*/
-                    }
-                }
+                        textView.setVisibility(View.VISIBLE);*//*
+                }*/
+            }
 
-                @Override
-                public void onFailure(Throwable t) {
-                    showErrorView(t);
-                }
-            });
+            @Override
+            public void onFailure(Call<ProductBean> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
 
     private void loadNextPage(/*final String category ,String filterParameter  ,final String orderBy*/){
-        WSUtils wsUtils = new WSUtils(getApplicationContext());
-        List<ProductBean> productBeanList = new ArrayList<>();
-        wsUtils.getproductList(productCategory, currentPage ,filterParams , orderBy , orderDirection, ConstantManager.ORDERBY.rowNumber , searchParam, new WSUtils.productListInterface() {
+        productBeanCall = myApp.getApiService().getProducts(productCategory, filterParams, orderBy, orderDirection,PAGE_START, ConstantManager.ORDERBY.rowNumber, searchParam);
+        productBeanCall.enqueue(new Callback<ProductBean>() {
             @Override
-            public void onSuccess(List<ProductBean.Product> productBeanList, Integer totalPage, Integer totalResult, Integer pageNumber) {
-                // setProductBeanList(productBeanList);
-
+            public void onResponse(Call<ProductBean> call, Response<ProductBean> response) {
                 mAdapter.removeLoadingFooter();
                 isLoading = false;
-                mAdapter.addAll(productBeanList);
+                mAdapter.addAll(response.body().getProductList());
                 if (currentPage != TOTAL_PAGES) mAdapter.addLoadingFooter();
                 else isLastPage = true;
 
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ProductBean> call, Throwable t) {
                 mAdapter.showRetry(true , fetchErrorMessage(t));
             }
-
         });
     }
 

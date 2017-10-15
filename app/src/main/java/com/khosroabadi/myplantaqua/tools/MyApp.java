@@ -1,15 +1,27 @@
 package com.khosroabadi.myplantaqua.tools;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.khosroabadi.myplantaqua.R;
+import com.khosroabadi.myplantaqua.webservice.WsInterface;
+import com.squareup.picasso.Picasso;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.acra.sender.HttpSender;
 
+import java.io.File;
+
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -30,6 +42,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 public class MyApp extends Application {
+
+    private WsInterface apiService;
+    private Picasso picasso;
+
+    public static MyApp get(Activity activity){
+        return (MyApp) activity.getApplicationContext();
+    }
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -39,6 +59,25 @@ public class MyApp extends Application {
                 .build()
         );
 
+        Timber.plant(new Timber.DebugTree());
+
+
+
+
+
+
+
+
+
        // ACRA.init(this);
+    }
+
+
+    public WsInterface getApiService(){
+        return  this.apiService;
+    }
+
+    public Picasso getPicasso(){
+        return picasso;
     }
 }

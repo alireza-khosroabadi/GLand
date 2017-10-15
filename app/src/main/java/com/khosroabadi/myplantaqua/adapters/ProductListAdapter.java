@@ -28,6 +28,8 @@ import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 import com.khosroabadi.myplantaqua.tools.ShareDataUtils;
 import com.khosroabadi.myplantaqua.webservice.WSUtils;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +50,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int LOADING = 1;
     private String errorMsg;
     int lastPosition = -1;
+    private Picasso picasso;
 
-    public ProductListAdapter(Context mContext) {
+    public ProductListAdapter(Context mContext , Picasso picasso) {
         this.mContext = mContext;
         this.mCallback = (PaginationAdapterCallback) mContext;
         this.productBeanList = new ArrayList<>();
+        this.picasso = picasso;
 
     }
 
@@ -100,10 +104,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 pHolder.plantId.setText(product.getId().toString());
 
 
-                Glide.with(mContext)
+              /*  Glide.with(mContext)
                 .load(IMAGE_URL+ product.getImageName())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(pHolder.plantImage);
+                        .into(pHolder.plantImage);*/
+
+              picasso.load(IMAGE_URL+ product.getImageName())
+                      .placeholder(R.drawable.ic_image_background)
+                      .into(pHolder.plantImage);
+
                 pHolder.plantImage.setBackgroundColor(Color.TRANSPARENT);
                 pHolder.mProgress.setVisibility(View.GONE);
                 final FavoritsDataProvider favoritsDataProvider = new FavoritsDataProvider(mContext);
@@ -118,11 +127,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
                 });
 
-                    Animation animation = AnimationUtils.loadAnimation(mContext , (position > lastPosition) ? R.anim.product_list_anim_up_from_bottom
+                  /*  Animation animation = AnimationUtils.loadAnimation(mContext , (position > lastPosition) ? R.anim.product_list_anim_up_from_bottom
                             : R.anim.product_list_anim_down_from_top);
                 //holder.itemView.startAnimation(animation);
                 lastPosition = position;
-                    pHolder.itemView.startAnimation(animation);
+                    pHolder.itemView.startAnimation(animation);*/
 
         if(favoritsBean.getId() !=null) {
             ((ProductVH) holder).favoritsTextView.setText(R.string.fa_heart);
