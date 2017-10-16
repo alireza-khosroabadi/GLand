@@ -2,6 +2,8 @@ package com.khosroabadi.myplantaqua.di.module;
 
 import android.content.Context;
 
+import com.khosroabadi.myplantaqua.di.scope.GLandApplicarionScope;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,6 +23,7 @@ public class ContextModule {
     }
 
     @Provides
+    @GLandApplicarionScope
     public Context provideContext(){
         return mContext;
     }

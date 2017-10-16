@@ -2,6 +2,8 @@ package com.khosroabadi.myplantaqua.di.module;
 
 import android.content.Context;
 
+import com.khosroabadi.myplantaqua.di.scope.GLandApplicarionScope;
+
 import java.io.File;
 
 import dagger.Module;
@@ -21,6 +23,7 @@ public class NetworkModule {
 
 
     @Provides
+    @GLandApplicarionScope
     public HttpLoggingInterceptor provideHttpLoggingInterceptor(){
 
         return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
@@ -32,16 +35,19 @@ public class NetworkModule {
     }
 
     @Provides
+    @GLandApplicarionScope
     public Cache provideCache(File file){
         return new Cache(file , 10*1000*1000);//10mg cache
     }
 
     @Provides
+    @GLandApplicarionScope
     public File provideCacheFile(Context context){
         return new File(context.getCacheDir() , "okhttp_cache");
     }
 
     @Provides
+    @GLandApplicarionScope
     public OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor , Cache cache){
         return new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
