@@ -1,7 +1,7 @@
 package com.khosroabadi.myplantaqua.di.module;
 
 import com.khosroabadi.myplantaqua.activity.FilterActivity;
-import com.khosroabadi.myplantaqua.di.scope.FilterActivityScope;
+import com.khosroabadi.myplantaqua.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,7 +20,7 @@ public class FilterActivityModule {
     }
 
     @Provides
-    @FilterActivityScope
+    @ActivityScope
     public FilterActivity provideFilterActivity(){
         return filterActivity;
     }

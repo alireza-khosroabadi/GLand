@@ -33,11 +33,11 @@ public class PropertyItemListAdapter extends BaseAdapter {
     FilterCacheDataProvider filterCacheDataProvider ;
 
     @Inject
-    public PropertyItemListAdapter(FilterActivity mCOntext) {
+    public PropertyItemListAdapter(FilterActivity mCOntext , FilterCacheDataProvider filterCacheDataProvider) {
         this.mCOntext = mCOntext;
         this.propertiesItemBeanList = new ArrayList<PropertiesItemBean>();
 
-        filterCacheDataProvider = new FilterCacheDataProvider(mCOntext.getApplicationContext());
+        this.filterCacheDataProvider = filterCacheDataProvider;
     }
 
     public void addAll(List<PropertiesItemBean> propertiesItemBeanList){
@@ -77,7 +77,7 @@ public class PropertyItemListAdapter extends BaseAdapter {
             FilterCacheBean filterCacheBean = filterCacheDataProvider.findBySelectedItemId(propertiesItemBeanList.get(position).getId());
             if(filterCacheBean == null) {
                 viewHolder.checkedTextView = (CheckedTextView) mView.findViewById(R.id.filter_list_item_name);
-                viewHolder.checkedTextView.setCheckMarkDrawable(0);
+                viewHolder.checkedTextView.setCheckMarkDrawable(null);
                 viewHolder.checkedTextView.setChecked(false);
             }else {
                 viewHolder.checkedTextView = (CheckedTextView) mView.findViewById(R.id.filter_list_item_name);
@@ -98,7 +98,7 @@ viewHolder.checkedTextView.setOnClickListener(new View.OnClickListener(){
     public void onClick(View view) {
         FilterCacheBean filterCacheBean = filterCacheDataProvider.findBySelectedItemId(propertiesItemBeanList.get(position).getId());
         if(filterCacheBean!= null){
-            viewHolder.checkedTextView.setCheckMarkDrawable(0);
+            viewHolder.checkedTextView.setCheckMarkDrawable(null);
             viewHolder.checkedTextView.setChecked(false);
             ConstantManager.filterParams.remove(propertiesItemBeanList.get(position).getId());
             filterCacheDataProvider.delete(propertiesItemBeanList.get(position).getId());

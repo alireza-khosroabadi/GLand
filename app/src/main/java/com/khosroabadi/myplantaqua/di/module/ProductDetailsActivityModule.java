@@ -1,7 +1,7 @@
 package com.khosroabadi.myplantaqua.di.module;
 
 import com.khosroabadi.myplantaqua.activity.ProductDetailActivity;
-import com.khosroabadi.myplantaqua.di.scope.ProductDetailsActivityScope;
+import com.khosroabadi.myplantaqua.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,7 +20,7 @@ public class ProductDetailsActivityModule {
     }
 
     @Provides
-    @ProductDetailsActivityScope
+    @ActivityScope
     public ProductDetailActivity productDetailActivity(){
         return productDetailActivity;
     }

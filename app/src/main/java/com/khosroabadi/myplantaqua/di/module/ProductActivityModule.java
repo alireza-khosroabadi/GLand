@@ -1,9 +1,7 @@
 package com.khosroabadi.myplantaqua.di.module;
 
 import com.khosroabadi.myplantaqua.activity.ProductActivity;
-import com.khosroabadi.myplantaqua.adapters.ProductListAdapter;
-import com.khosroabadi.myplantaqua.di.scope.ProductActivityScope;
-import com.squareup.picasso.Picasso;
+import com.khosroabadi.myplantaqua.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,7 +20,7 @@ public class ProductActivityModule {
     }
 
     @Provides
-    @ProductActivityScope
+    @ActivityScope
     public ProductActivity productActivity(){
         return productActivity;
     }

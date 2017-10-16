@@ -2,7 +2,8 @@ package com.khosroabadi.myplantaqua.di.component;
 
 import com.khosroabadi.myplantaqua.activity.FilterActivity;
 import com.khosroabadi.myplantaqua.di.module.FilterActivityModule;
-import com.khosroabadi.myplantaqua.di.scope.FilterActivityScope;
+import com.khosroabadi.myplantaqua.di.module.FilterCacheDataProviderModule;
+import com.khosroabadi.myplantaqua.di.scope.ActivityScope;
 
 import dagger.Component;
 
@@ -10,8 +11,10 @@ import dagger.Component;
  * Created by khosroabadi on 10/16/2017.
  */
 
-@FilterActivityScope
-@Component(modules = FilterActivityModule.class , dependencies = GreenLandApplicationComponent.class)
+@ActivityScope
+@Component(modules = {FilterActivityModule.class ,
+        FilterCacheDataProviderModule.class} ,
+        dependencies = GreenLandApplicationComponent.class)
 public interface FilterActivityComponent {
 
     void injectFilterActivity(FilterActivity filterActivity);

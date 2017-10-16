@@ -21,12 +21,23 @@ import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.activity.ProductDetailActivity;
 import com.khosroabadi.myplantaqua.adapters.dataFactory.BestProductListAdapter;
 import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
+import com.khosroabadi.myplantaqua.di.component.BestFragmentComponent;
+import com.khosroabadi.myplantaqua.di.component.DaggerBestFragmentComponent;
+import com.khosroabadi.myplantaqua.di.module.BestProductFragmentModule;
 import com.khosroabadi.myplantaqua.listener.PaginationScrollListener;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
+import com.khosroabadi.myplantaqua.tools.MyApp;
 import com.khosroabadi.myplantaqua.webservice.WSUtils;
+import com.khosroabadi.myplantaqua.webservice.WsInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +47,7 @@ public class BestProductFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private BestProductListAdapter mAdapter;
+
     private String productCategory;
     private ProgressBar progressBar;
     private static final int PAGE_START = 1;
@@ -44,6 +55,15 @@ public class BestProductFragment extends Fragment {
     private boolean isLastPage = false;
     private int TOTAL_PAGES ;
     private int currentPage = PAGE_START;
+
+    @Inject
+    BestProductListAdapter mAdapter;
+
+    @Inject
+    WsInterface apiService;
+
+    Call<ProductBean> productCallBack;
+
 
     public BestProductFragment() {
         // Required empty public constructor
@@ -56,6 +76,13 @@ public class BestProductFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_best_product, container, false);
         productCategory = getArguments().getString(ConstantManager.CATEGORY_NAME);
+        BestFragmentComponent component = DaggerBestFragmentComponent.builder()
+                .greenLandApplicationComponent(MyApp.get(this.getActivity()).getGLandApplicationComponent())
+                .bestProductFragmentModule(new BestProductFragmentModule(this))
+                .build();
+
+        component.injectBestProductFragment(this);
+
         if (savedInstanceState == null)
          initializeRecyclerView(view);
 
@@ -68,7 +95,6 @@ public class BestProductFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_best_product_list);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,true);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new BestProductListAdapter(getActivity());
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(onItemClickListener);
@@ -141,26 +167,30 @@ public class BestProductFragment extends Fragment {
     };
 
     private void loadFirstPage(/*final String category ,final String filterParameter  ,final String orderBy */){
-        WSUtils wsUtils = new WSUtils(getActivity());
-        List<ProductBean> productBeanList = new ArrayList<>();
-        wsUtils.getproductList(productCategory, PAGE_START ,null, ConstantManager.ORDERBY.RATE , ConstantManager.ORDERBY.ORDER_DIR_DESC , ConstantManager.ORDERBY.rowNumber ,null, new WSUtils.productListInterface() {
+
+        //wsUtils.getproductList(productCategory, PAGE_START ,null, ConstantManager.ORDERBY.RATE , ConstantManager.ORDERBY.ORDER_DIR_DESC , ConstantManager.ORDERBY.rowNumber
+        productCallBack = apiService.getProducts(productCategory,null,ConstantManager.ORDERBY.RATE ,ConstantManager.ORDERBY.ORDER_DIR_DESC,PAGE_START, ConstantManager.ORDERBY.rowNumber , null);
+        productCallBack.enqueue(new Callback<ProductBean>() {
             @Override
-            public void onSuccess(List<ProductBean.Product> productBeanList, Integer totalPage, Integer totalResult, Integer pageNumber) {
-                // setProductBeanList(productBeanList);
+            public void onResponse(Call<ProductBean> call, Response<ProductBean> response) {
                 currentPage = PAGE_START;
                 isLastPage = false;
                 progressBar.setVisibility(View.GONE);
-                mAdapter.addAll(productBeanList);
-                TOTAL_PAGES = totalPage;
-               // if ((currentPage <= TOTAL_PAGES) && (ConstantManager.ORDERBY.rowNumber <= totalResult) ) mAdapter.addLoadingFooter();
+                mAdapter.removeAll();
+                mAdapter.addAll(response.body().getProductList());
+                TOTAL_PAGES = response.body().getTotalPage();
+                // if ((currentPage <= TOTAL_PAGES) && (ConstantManager.ORDERBY.rowNumber <= totalResult) ) mAdapter.addLoadingFooter();
                 isLastPage = true;
             }
 
             @Override
-            public void onFailure(Throwable throwable) {
+            public void onFailure(Call<ProductBean> call, Throwable t) {
 
             }
         });
+
+
+
     }
 
 /*    private void loadNextPage(*//*final String category ,String filterParameter  ,final String orderBy*//*){

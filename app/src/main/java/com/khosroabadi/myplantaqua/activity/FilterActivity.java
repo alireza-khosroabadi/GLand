@@ -19,6 +19,7 @@ import com.khosroabadi.myplantaqua.dataModel.dm.propertiesItem.PropertiesItemBea
 import com.khosroabadi.myplantaqua.dataModel.dm.propertyGroup.PropertyGroupBean;
 import com.khosroabadi.myplantaqua.di.component.DaggerFilterActivityComponent;
 import com.khosroabadi.myplantaqua.di.component.FilterActivityComponent;
+import com.khosroabadi.myplantaqua.di.module.ActivityContextModule;
 import com.khosroabadi.myplantaqua.di.module.FilterActivityModule;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 import com.khosroabadi.myplantaqua.tools.MyApp;
@@ -81,6 +82,7 @@ public class FilterActivity extends BaseActivity {
         FilterActivityComponent component = DaggerFilterActivityComponent.builder()
                 .greenLandApplicationComponent(MyApp.get(this).getGLandApplicationComponent())
                 .filterActivityModule(new FilterActivityModule(this))
+                .activityContextModule(new ActivityContextModule(this))
                 .build();
 
         component.injectFilterActivity(this);
@@ -110,6 +112,7 @@ public class FilterActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call<List<PropertiesItemBean>> call, Response<List<PropertiesItemBean>> response) {
                     //final PropertyItemListAdapter propertyItemListAdapter = new PropertyItemListAdapter(getApplicationContext(), null);
+                    propertyItemListAdapter.clear();
                     propertyItemListAdapter.addAll(response.body());
                     itemListView = (ListView) findViewById(R.id.filter_item_list);
                     itemListView.setAdapter(propertyItemListAdapter);

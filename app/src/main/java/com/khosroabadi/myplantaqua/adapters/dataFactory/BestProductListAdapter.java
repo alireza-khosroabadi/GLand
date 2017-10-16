@@ -2,6 +2,7 @@ package com.khosroabadi.myplantaqua.adapters.dataFactory;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,10 +18,13 @@ import com.bumptech.glide.Glide;
 import com.khosroabadi.myplantaqua.BuildConfig;
 import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
+import com.khosroabadi.myplantaqua.fragments.BestProductFragment;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by a.khosroabadi on 10/31/2016.
@@ -36,8 +40,9 @@ public class BestProductListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int ITEM = 0;
     private static final int LOADING = 1;
 
-    public BestProductListAdapter(Context mContext) {
-        this.mContext = mContext;
+    @Inject
+    public BestProductListAdapter(BestProductFragment mContext) {
+        this.mContext = mContext.getContext();
         //    this.productBeanList=productBeanList;
         this.productBeanList = new ArrayList<>();
 
@@ -178,6 +183,10 @@ public class BestProductListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 add(productBean);
             }
         }
+    }
+
+    public void removeAll(){
+        productBeanList.clear();
     }
 
     public void remove(ProductBean.Product productBean){

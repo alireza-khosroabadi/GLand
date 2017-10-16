@@ -45,9 +45,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 public class MyApp extends Application {
-
+/*
     private WsInterface apiService;
-    private Picasso picasso;
+    private Picasso picasso;*/
     private GreenLandApplicationComponent component;
 
     public static MyApp get(Activity activity){
@@ -69,9 +69,9 @@ public class MyApp extends Application {
                 .contextModule(new ContextModule(this))
                 .build();
 
-        apiService = component.getApiService();
+/*        apiService = component.getApiService();
 
-        picasso = component.getPicasso();
+        picasso = component.getPicasso();*/
 
        // ACRA.init(this);
     }
