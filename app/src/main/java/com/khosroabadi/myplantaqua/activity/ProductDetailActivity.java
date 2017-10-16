@@ -29,13 +29,24 @@ import com.khosroabadi.myplantaqua.dataModel.da.favorits.FavoritsDataProvider;
 import com.khosroabadi.myplantaqua.dataModel.dm.favorits.FavoritsBean;
 import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
 import com.khosroabadi.myplantaqua.dataModel.dm.properties.PropertiesBean;
+import com.khosroabadi.myplantaqua.di.component.DaggerProductDetailsActivityComponent;
+import com.khosroabadi.myplantaqua.di.component.ProductDetailsActivityComponent;
+import com.khosroabadi.myplantaqua.di.module.ProductDetailsActivityModule;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
+import com.khosroabadi.myplantaqua.tools.MyApp;
 import com.khosroabadi.myplantaqua.tools.ShareDataUtils;
 import com.khosroabadi.myplantaqua.webservice.WSUtils;
+import com.khosroabadi.myplantaqua.webservice.WsInterface;
 
 import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*import static com.khosroabadi.myplantaqua.R.drawable.plant;
 import static com.khosroabadi.myplantaqua.R.id.fab;*/
@@ -52,6 +63,10 @@ public class ProductDetailActivity extends BaseActivity {
     private LinearLayout productDetailsLayout;
     private  final  String IMAGE_URL = ConstantManager.BASE_URL+"plantImage/";
     private AwesomeTextView shareTextView,likeTextView;
+    private Call<List<PropertiesBean>> productPropertiesCallback;
+
+    @Inject
+    WsInterface apiService;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -60,6 +75,13 @@ public class ProductDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_product_detail);
         initializeView();
         int position = getIntent().getIntExtra(ConstantManager.PRODUCT_DETAILS_EXTRA_PARAM_ID , 0);
+
+        ProductDetailsActivityComponent component = DaggerProductDetailsActivityComponent.builder()
+                .greenLandApplicationComponent(MyApp.get(this).getGLandApplicationComponent())
+                .productDetailsActivityModule(new ProductDetailsActivityModule(this))
+                .build();
+
+        component.injectProductDetailsActivity(this);
 
         windowTransition();
         getropertiesFromServer(position);
@@ -229,22 +251,22 @@ public class ProductDetailActivity extends BaseActivity {
         WSUtils wsUtils = new WSUtils(getApplicationContext());
        // List<PropertiesBean> propertiesBeanList = new ArrayList<>();
         if (wsUtils.isNetworkAvailable()) {
-            wsUtils.getProductPropertiesList(productId, new WSUtils.PropertiesInterface() {
+            productPropertiesCallback = apiService.getProductProperties(productId);
+            productPropertiesCallback.enqueue(new Callback<List<PropertiesBean>>() {
                 @Override
-                public void onSuccess(List<PropertiesBean> propertiesBeanList) {
-                    // setProductBeanList(productBeanList);
-                    if (propertiesBeanList != null && propertiesBeanList.size() > 0){
+                public void onResponse(Call<List<PropertiesBean>> call, Response<List<PropertiesBean>> response) {
+                    if (response.body() != null && response.body().size() > 0){
                         hideErrorView();
-                        plantName.setText(propertiesBeanList.get(0).getProductName());
-                        productEnName = propertiesBeanList.get(0).getProductEnName();
-                        productDescription.setText(propertiesBeanList.get(0).getDescription());
-                        productImageName = propertiesBeanList.get(0).getImageName();
-                        productName = propertiesBeanList.get(0).getProductName();
+                        plantName.setText(response.body().get(0).getProductName());
+                        productEnName = response.body().get(0).getProductEnName();
+                        productDescription.setText(response.body().get(0).getDescription());
+                        productImageName = response.body().get(0).getImageName();
+                        productName = response.body().get(0).getProductName();
                         Glide.with(getApplicationContext())
-                            .load(IMAGE_URL+"/"+productImageName)
+                                .load(IMAGE_URL+"/"+productImageName)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .placeholder(R.drawable.img_back)
-                            .into(plantImage);
+                                .into(plantImage);
                         plantImage.setBackgroundColor(Color.TRANSPARENT);
                         FavoritsDataProvider favoritsDataProvider = new FavoritsDataProvider(getApplicationContext());
                         Integer productId = getIntent().getIntExtra(ConstantManager.PRODUCT_DETAILS_EXTRA_PARAM_ID , 0);
@@ -256,27 +278,39 @@ public class ProductDetailActivity extends BaseActivity {
                             likeTextView.setText(R.string.fa_heart);
                             likeTextView.setTextColor(getResources().getColor(R.color.md_grey_700));
                         }
-                    for (PropertiesBean propertiesBean : propertiesBeanList)
+                        for (PropertiesBean propertiesBean : response.body())
 
-                {
+                        {
 
-                    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View contentView = layoutInflater.inflate(R.layout.product_property_details, null, false);
-                    TextView propertyGroup = (TextView) contentView.findViewById(R.id.properties_group);
-                    TextView propertyItem = (TextView) contentView.findViewById(R.id.properties_item);
+                            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            View contentView = layoutInflater.inflate(R.layout.product_property_details, null, false);
+                            TextView propertyGroup = (TextView) contentView.findViewById(R.id.properties_group);
+                            TextView propertyItem = (TextView) contentView.findViewById(R.id.properties_item);
 
-                    Typeface font = Typeface.createFromAsset(getAssets(), "fonts/IRANSansWeb.ttf");
+                            Typeface font = Typeface.createFromAsset(getAssets(), "fonts/IRANSansWeb.ttf");
 
-                    propertyGroup.setTypeface(font);
-                    propertyItem.setTypeface(font);
+                            propertyGroup.setTypeface(font);
+                            propertyItem.setTypeface(font);
 
-                    propertyGroup.setText(propertiesBean.getPropertiesGroup());
-                    propertyItem.setText(propertiesBean.getPropertiesItemValue());
+                            propertyGroup.setText(propertiesBean.getPropertiesGroup());
+                            propertyItem.setText(propertiesBean.getPropertiesItemValue());
 
-                    productDetailsLayout.addView(contentView);
+                            productDetailsLayout.addView(contentView);
+
+                        }
+                    }
 
                 }
-                    }
+
+                @Override
+                public void onFailure(Call<List<PropertiesBean>> call, Throwable t) {
+
+                }
+            });
+/*            wsUtils.getProductPropertiesList(productId, new WSUtils.PropertiesInterface() {
+                @Override
+                public void onSuccess(List<PropertiesBean> propertiesBeanList) {
+                    // setProductBeanList(productBeanList);
 
                 }
 
@@ -284,7 +318,7 @@ public class ProductDetailActivity extends BaseActivity {
                 public void onFailure(Throwable t) {
                     showErrorView(t);
                 }
-            });
+            });*/
         }else {
             showErrorView(null);
         }

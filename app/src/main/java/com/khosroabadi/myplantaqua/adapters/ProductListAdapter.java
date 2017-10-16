@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.khosroabadi.myplantaqua.R;
+import com.khosroabadi.myplantaqua.activity.ProductActivity;
 import com.khosroabadi.myplantaqua.adapters.dataFactory.PaginationAdapterCallback;
 import com.khosroabadi.myplantaqua.customComponent.AwesomeTextView;
 import com.khosroabadi.myplantaqua.dataModel.da.favorits.FavoritsDataProvider;
@@ -32,6 +33,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by a.khosroabadi on 10/31/2016.
@@ -52,7 +55,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     int lastPosition = -1;
     private Picasso picasso;
 
-    public ProductListAdapter(Context mContext , Picasso picasso) {
+    @Inject
+    public ProductListAdapter(ProductActivity mContext , Picasso picasso) {
         this.mContext = mContext;
         this.mCallback = (PaginationAdapterCallback) mContext;
         this.productBeanList = new ArrayList<>();
@@ -358,6 +362,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             productBeanList.remove(productBean);
             notifyItemRemoved(position);
         }
+    }
+
+    public void removeAll(){
+        productBeanList.clear();
     }
 
     public void clear(){

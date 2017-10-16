@@ -2,7 +2,7 @@ package com.khosroabadi.myplantaqua.di.module;
 
 import android.content.Context;
 
-import com.khosroabadi.myplantaqua.di.scope.GreenLandApplicationScope;
+import com.khosroabadi.myplantaqua.di.scope.GLandApplicarionScope;
 
 import java.io.File;
 
@@ -23,33 +23,31 @@ public class NetworkModule {
 
 
     @Provides
-    @GreenLandApplicationScope
+    @GLandApplicarionScope
     public HttpLoggingInterceptor provideHttpLoggingInterceptor(){
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+        return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
                 Timber.i(message);
             }
         });
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        return interceptor;
     }
 
     @Provides
-    @GreenLandApplicationScope
+    @GLandApplicarionScope
     public Cache provideCache(File file){
         return new Cache(file , 10*1000*1000);//10mg cache
     }
 
     @Provides
-    @GreenLandApplicationScope
+    @GLandApplicarionScope
     public File provideCacheFile(Context context){
         return new File(context.getCacheDir() , "okhttp_cache");
     }
 
     @Provides
-    @GreenLandApplicationScope
+    @GLandApplicarionScope
     public OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor , Cache cache){
         return new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)

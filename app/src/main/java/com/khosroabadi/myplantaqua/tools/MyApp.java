@@ -8,10 +8,7 @@ import com.jakewharton.picasso.OkHttp3Downloader;
 import com.khosroabadi.myplantaqua.R;
 import com.khosroabadi.myplantaqua.di.component.DaggerGreenLandApplicationComponent;
 import com.khosroabadi.myplantaqua.di.component.GreenLandApplicationComponent;
-import com.khosroabadi.myplantaqua.di.module.ApiServiceModule;
 import com.khosroabadi.myplantaqua.di.module.ContextModule;
-import com.khosroabadi.myplantaqua.di.module.NetworkModule;
-import com.khosroabadi.myplantaqua.di.module.PicassoModule;
 import com.khosroabadi.myplantaqua.webservice.WsInterface;
 import com.squareup.picasso.Picasso;
 
@@ -51,6 +48,7 @@ public class MyApp extends Application {
 
     private WsInterface apiService;
     private Picasso picasso;
+    private GreenLandApplicationComponent component;
 
     public static MyApp get(Activity activity){
         return (MyApp) activity.getApplicationContext();
@@ -67,22 +65,19 @@ public class MyApp extends Application {
 
         Timber.plant(new Timber.DebugTree());
 
-        GreenLandApplicationComponent component = DaggerGreenLandApplicationComponent.builder()
+        component = DaggerGreenLandApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
 
         apiService = component.getApiService();
+
         picasso = component.getPicasso();
 
        // ACRA.init(this);
     }
 
 
-    public WsInterface getApiService(){
-        return  this.apiService;
-    }
-
-    public Picasso getPicasso(){
-        return picasso;
+    public GreenLandApplicationComponent getGLandApplicationComponent(){
+        return component;
     }
 }

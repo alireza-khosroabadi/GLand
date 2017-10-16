@@ -3,20 +3,18 @@ package com.khosroabadi.myplantaqua.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.view.ContextMenu;
@@ -42,17 +40,21 @@ import com.khosroabadi.myplantaqua.adapters.ProductListAdapter;
 import com.khosroabadi.myplantaqua.adapters.dataFactory.PaginationAdapterCallback;
 import com.khosroabadi.myplantaqua.dataModel.da.filterCache.FilterCacheDataProvider;
 import com.khosroabadi.myplantaqua.dataModel.dm.product.ProductBean;
+import com.khosroabadi.myplantaqua.di.component.DaggerProductActivityComponent;
+import com.khosroabadi.myplantaqua.di.component.ProductActivityComponent;
+import com.khosroabadi.myplantaqua.di.module.ProductActivityModule;
 import com.khosroabadi.myplantaqua.listener.PaginationScrollListener;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 import com.khosroabadi.myplantaqua.tools.MyApp;
 import com.khosroabadi.myplantaqua.tools.TransitionHelper;
 import com.khosroabadi.myplantaqua.webservice.WSUtils;
-import com.squareup.picasso.Picasso;
+import com.khosroabadi.myplantaqua.webservice.WsInterface;
 
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +66,7 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
     private RecyclerView mRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private LinearLayout errorLayout;
-    private ProductListAdapter mAdapter;
+
     private Button btnRetry;
     private TextView errorText;
     private TextView  mToolbarTitle;
@@ -82,10 +84,16 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
     private Integer orderDirection = ConstantManager.ORDERBY.ORDER_DIR_ASC;
     private String searchParam;
     private Integer selectedPRoductId;
-    private Picasso picasso;
+    private ProductActivityComponent component;
 
-    private Call<ProductBean> productBeanCall;
-    private MyApp myApp;
+
+    @Inject
+    ProductListAdapter mAdapter;
+
+    @Inject
+    WsInterface apiService;
+
+    Call<ProductBean> productBeanCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +104,18 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
             orderBy = getIntent().getExtras().getString(ConstantManager.ORDER_BY);
             orderDirection = getIntent().getExtras().getInt(ConstantManager.ORDER_DIRECTION);
         }
-        myApp = MyApp.get(this);
+
+        component =  DaggerProductActivityComponent.builder()
+                .greenLandApplicationComponent(MyApp.get(this).getGLandApplicationComponent())
+                .productActivityModule(new ProductActivityModule(this))
+                .build();
+        component.injectProductActivity(this);
 
         initInstancesDrawer();
         initializeRecyclerView();
         FilterCacheDataProvider filterCacheDataProvider = new FilterCacheDataProvider(getApplicationContext());
         filterCacheDataProvider.clearFilterItemTable();
-        setupVindowAnimation();
+        //setupVindowAnimation();
         //  loacFirstPage(productCategory);
     }
 
@@ -141,12 +154,10 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
     }
 
     private  void initializeRecyclerView(){
-        picasso = myApp.getPicasso();
         mRecyclerView = (RecyclerView) findViewById(R.id.plant_list);
         boolean isPhone = getResources().getBoolean(R.bool.is_phone);
             linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new ProductListAdapter(this , picasso);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(onItemClickListener);
@@ -388,15 +399,16 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
 
 
 
-    private void loadFirstPage(/*final String category ,final String filterParameter  ,final String orderBy */){
+    private void loadFirstPage( /*final String category ,final String filterParameter  ,final String orderBy */){
         hideErrorView();
-        productBeanCall = myApp.getApiService().getProducts(productCategory, filterParams, orderBy, orderDirection,PAGE_START, ConstantManager.ORDERBY.rowNumber, searchParam);
+        productBeanCall = apiService.getProducts(productCategory, filterParams, orderBy, orderDirection,PAGE_START, ConstantManager.ORDERBY.rowNumber, searchParam);
         productBeanCall.enqueue(new Callback<ProductBean>() {
             @Override
             public void onResponse(Call<ProductBean> call, Response<ProductBean> response) {
                 currentPage = PAGE_START;
                 isLastPage = false;
                 progressBar.setVisibility(View.GONE);
+                mAdapter.clear();
                 mAdapter.addAll(response.body().getProductList());
                 TOTAL_PAGES = response.body().getTotalPage();
                 if ((currentPage <= TOTAL_PAGES) && (ConstantManager.ORDERBY.rowNumber <= response.body().getTotalResult()))
@@ -421,7 +433,7 @@ public class ProductActivity extends BaseActivity implements PaginationAdapterCa
 
 
     private void loadNextPage(/*final String category ,String filterParameter  ,final String orderBy*/){
-        productBeanCall = myApp.getApiService().getProducts(productCategory, filterParams, orderBy, orderDirection,PAGE_START, ConstantManager.ORDERBY.rowNumber, searchParam);
+        productBeanCall = apiService.getProducts(productCategory, filterParams, orderBy, orderDirection,PAGE_START, ConstantManager.ORDERBY.rowNumber, searchParam);
         productBeanCall.enqueue(new Callback<ProductBean>() {
             @Override
             public void onResponse(Call<ProductBean> call, Response<ProductBean> response) {

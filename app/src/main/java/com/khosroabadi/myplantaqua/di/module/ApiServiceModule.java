@@ -1,6 +1,6 @@
 package com.khosroabadi.myplantaqua.di.module;
 
-import com.khosroabadi.myplantaqua.di.scope.GreenLandApplicationScope;
+import com.khosroabadi.myplantaqua.di.scope.GLandApplicarionScope;
 import com.khosroabadi.myplantaqua.webservice.WsInterface;
 
 import dagger.Module;
@@ -18,13 +18,13 @@ public class ApiServiceModule {
     private final static  String BASE_URL="http://91.98.30.138:8080/MyAquaPlant/";
 
     @Provides
-    @GreenLandApplicationScope
+    @GLandApplicarionScope
     public WsInterface provideApiService(Retrofit retrofit){
         return retrofit.create(WsInterface.class);
     }
 
     @Provides
-    @GreenLandApplicationScope
+    @GLandApplicarionScope
     public Retrofit provideRetrofite(OkHttpClient client){
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())

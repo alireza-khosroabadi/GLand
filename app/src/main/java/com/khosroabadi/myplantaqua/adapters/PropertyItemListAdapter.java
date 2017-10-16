@@ -9,12 +9,16 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.khosroabadi.myplantaqua.R;
+import com.khosroabadi.myplantaqua.activity.FilterActivity;
 import com.khosroabadi.myplantaqua.dataModel.da.filterCache.FilterCacheDataProvider;
 import com.khosroabadi.myplantaqua.dataModel.dm.filterCache.FilterCacheBean;
 import com.khosroabadi.myplantaqua.dataModel.dm.propertiesItem.PropertiesItemBean;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Alireza on 12/8/2016.
@@ -28,14 +32,21 @@ public class PropertyItemListAdapter extends BaseAdapter {
     static List<Integer> selectedItems;
     FilterCacheDataProvider filterCacheDataProvider ;
 
-
-    public PropertyItemListAdapter(Context mCOntext , List<PropertiesItemBean> propertiesItemBeanList) {
+    @Inject
+    public PropertyItemListAdapter(FilterActivity mCOntext) {
         this.mCOntext = mCOntext;
-        this.propertiesItemBeanList = propertiesItemBeanList;
+        this.propertiesItemBeanList = new ArrayList<PropertiesItemBean>();
 
-        filterCacheDataProvider = new FilterCacheDataProvider(mCOntext);
+        filterCacheDataProvider = new FilterCacheDataProvider(mCOntext.getApplicationContext());
     }
 
+    public void addAll(List<PropertiesItemBean> propertiesItemBeanList){
+        this.propertiesItemBeanList.addAll(propertiesItemBeanList);
+    }
+
+    public void clear(){
+        this.propertiesItemBeanList.clear();
+    }
 
     @Override
     public int getCount() {

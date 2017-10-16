@@ -17,12 +17,22 @@ import com.khosroabadi.myplantaqua.adapters.PropertyItemListAdapter;
 import com.khosroabadi.myplantaqua.dataModel.da.filterCache.FilterCacheDataProvider;
 import com.khosroabadi.myplantaqua.dataModel.dm.propertiesItem.PropertiesItemBean;
 import com.khosroabadi.myplantaqua.dataModel.dm.propertyGroup.PropertyGroupBean;
+import com.khosroabadi.myplantaqua.di.component.DaggerFilterActivityComponent;
+import com.khosroabadi.myplantaqua.di.component.FilterActivityComponent;
+import com.khosroabadi.myplantaqua.di.module.FilterActivityModule;
 import com.khosroabadi.myplantaqua.tools.ConstantManager;
+import com.khosroabadi.myplantaqua.tools.MyApp;
 import com.khosroabadi.myplantaqua.webservice.WSUtils;
+import com.khosroabadi.myplantaqua.webservice.WsInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FilterActivity extends BaseActivity {
@@ -38,6 +48,14 @@ public class FilterActivity extends BaseActivity {
     private Boolean filterPressed = Boolean.FALSE;
    private final List<String> listItem= new ArrayList<>();
     private PropertyGroupListAdapter propertyGroupListAdapter;
+
+    @Inject
+    WsInterface apiService;
+    @Inject
+    PropertyItemListAdapter propertyItemListAdapter;
+
+    Call<List<PropertyGroupBean>> propertiesGroupCallBack;
+    Call<List<PropertiesItemBean>> propertiesItemCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +77,14 @@ public class FilterActivity extends BaseActivity {
 
             }
         });
+
+        FilterActivityComponent component = DaggerFilterActivityComponent.builder()
+                .greenLandApplicationComponent(MyApp.get(this).getGLandApplicationComponent())
+                .filterActivityModule(new FilterActivityModule(this))
+                .build();
+
+        component.injectFilterActivity(this);
+
         String propertyGroupCategory = getIntent().getExtras().getString(ConstantManager.PRODUCT_FILTER_CATEGROY_EXTRA_PARAM);
         getPropertyGroupFromServer(propertyGroupCategory);
         groupListView = (ListView) findViewById(R.id.filter_group_list);
@@ -78,20 +104,32 @@ public class FilterActivity extends BaseActivity {
 
     private void setItemListView(final Integer propertyGroupId){
         WSUtils wsUtils = new WSUtils(getApplicationContext());
-        List<PropertiesItemBean> propertyItemServiceModelList = new ArrayList<>();
         if (wsUtils.isNetworkAvailable()) {
-            wsUtils.getPropertyItemList(propertyGroupId, new WSUtils.propertyItemInterfce() {
+            propertiesItemCallBack = apiService.getPropertisItem(propertyGroupId);
+            propertiesItemCallBack.enqueue(new Callback<List<PropertiesItemBean>>() {
                 @Override
-                public void onSuccess(List<PropertiesItemBean> propertyItemList) {
-
-                    final PropertyItemListAdapter propertyItemListAdapter = new PropertyItemListAdapter(getApplicationContext(), propertyItemList);
+                public void onResponse(Call<List<PropertiesItemBean>> call, Response<List<PropertiesItemBean>> response) {
+                    //final PropertyItemListAdapter propertyItemListAdapter = new PropertyItemListAdapter(getApplicationContext(), null);
+                    propertyItemListAdapter.addAll(response.body());
                     itemListView = (ListView) findViewById(R.id.filter_item_list);
                     itemListView.setAdapter(propertyItemListAdapter);
                     itemListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                     filterParams = propertyItemListAdapter.getSelectedItems();
+                }
+
+                @Override
+                public void onFailure(Call<List<PropertiesItemBean>> call, Throwable t) {
 
                 }
             });
+/*            wsUtils.getPropertyItemList(propertyGroupId, new WSUtils.propertyItemInterfce() {
+                @Override
+                public void onSuccess(List<PropertiesItemBean> propertyItemList) {
+
+
+
+                }
+            });*/
         }
 
     }
@@ -99,16 +137,16 @@ public class FilterActivity extends BaseActivity {
 
     private void getPropertyGroupFromServer(final String category){
         WSUtils wsUtils = new WSUtils(getApplicationContext());
-        List<PropertyGroupBean> productBeanList = new ArrayList<>();
         if (wsUtils.isNetworkAvailable()) {
-            wsUtils.getPropertyGroupList(category, new WSUtils.propertyGroupInterfce() {
-                @Override
-                public void onSuccess(List<PropertyGroupBean> propertyGroupList) {
 
-                    propertyGroupListAdapter = new PropertyGroupListAdapter(getApplicationContext(), propertyGroupList);
+            propertiesGroupCallBack = apiService.getPropertGroup(category);
+            propertiesGroupCallBack.enqueue(new Callback<List<PropertyGroupBean>>() {
+                @Override
+                public void onResponse(Call<List<PropertyGroupBean>> call, Response<List<PropertyGroupBean>> response) {
+                    propertyGroupListAdapter = new PropertyGroupListAdapter(getApplicationContext(), response.body());
                     groupListView.setAdapter(propertyGroupListAdapter);
-                    setPropertyGroupBeanList(propertyGroupList);
-                    if (propertyGroupBeanList != null && propertyGroupList.size() >0)
+                    setPropertyGroupBeanList(response.body());
+                    if (propertyGroupBeanList != null && response.body().size() >0)
                         setItemListView(propertyGroupBeanList.get(0).getId());
                     groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -117,7 +155,19 @@ public class FilterActivity extends BaseActivity {
                         }
                     });
                 }
+
+                @Override
+                public void onFailure(Call<List<PropertyGroupBean>> call, Throwable t) {
+
+                }
             });
+/*            wsUtils.getPropertyGroupList(category, new WSUtils.propertyGroupInterfce() {
+                @Override
+                public void onSuccess(List<PropertyGroupBean> propertyGroupList) {
+
+
+                }
+            });*/
         }
         else {
 
